@@ -5,32 +5,36 @@
   <title>Min betalingsside</title>
 </head>
 <body>
-  <h1>Køb mit produkt</h1>
-  <p>Pris: 1 DKK</p>
 
-  <!-- PayPal Button -->
-  <div id="paypal-button-container"></div>
+
+  <div class="product">
+        <h1>Privatøkonomi e-bog</h1>
+
+        <p>Pris: 1 DKK</p>
+
+        <div id="paypal-button"></div>
+    </div>
 
   <script src="https://www.paypal.com/sdk/js?client-id=AU4PsrfgUFp5g913uO4GW4MFW73RjgH_razmIH9KwmtNFDaF8LWYAMGWa-w7-ijqSJyqAwrJaRVjVe9g&currency=DKK"></script>
 
   <script>
     paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: "1.00"
-            }
-          }]
-        });
-      },
+  createOrder: function(data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: "1.00"
+        }
+      }]
+    });
+  },
 
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert("Tak for dit køb, " + details.payer.name.given_name + "!");
-        });
-      }
-    }).render('#paypal-button-container');
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      window.location.href = "/success.html";
+    });
+  }
+}).render('#paypal-button');
   </script>
 
 </body>
